@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Product, Enquiry
+from .models import Product, Enquiry, Contact
 
 class EnquiryForm(forms.ModelForm):
     class Meta:
@@ -14,3 +14,8 @@ class EnquiryForm(forms.ModelForm):
         empty_label='Select Product',
         to_field_name='id'
     )
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['name', 'email', 'message']

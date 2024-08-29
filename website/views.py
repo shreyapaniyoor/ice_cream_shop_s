@@ -13,6 +13,7 @@ from django.template import loader
 from django.urls import reverse
 from .models import Product
 from .forms import EnquiryForm
+from .forms import ContactForm
 from django.contrib import messages
 
 from django.core.mail import EmailMultiAlternatives
@@ -89,6 +90,18 @@ def contact(request):
             return redirect('contact')
         
     return render(request, "contact.html")
+
+def contact_view(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('success')
+    else:
+        form = ContactForm()
+
+    return render(request, 'contact.html', {'form': form})
+
 
 def confirm_enquiry_email(instance):
     subject = 'Your Product Enquiry Confirmation'
